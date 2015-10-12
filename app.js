@@ -12,7 +12,7 @@ var applicantSchema = mongoose.Schema({
 	bio             : String,
 	skills          : Array,
 	years 			: Number,
-	why   : String
+	why   			: String
 })
 
 var Applicant = mongoose.model('Applicant', applicantSchema)
