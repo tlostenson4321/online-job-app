@@ -1,8 +1,22 @@
 // Requires \\
 var express = require('express');
 var bodyParser = require('body-parser');
-
+var mongoose = require('mongoose')
 // Create Express App Object \\
+
+mongoose.connect('mongodb://localhost/Tlosinspace')
+
+var applicantSchema = mongoose.Schema({
+
+	name            : {type: String, required : true},
+	bio             : String,
+	skills          : Array,
+	years 			: Number,
+	why   : String
+})
+
+var Applicant = mongoose.model('Applicant', applicantSchema)
+
 var app = express();
 
 // Application Configuration \\
@@ -25,8 +39,19 @@ app.get('/applicants', function(req, res){
 app.post('/applicant', function(req, res){
 	// Here is where you need to get the data
 	// from the post body and store it in the database
-	res.send('No funciona');
+	console.log(req.body)
+	var newApplicant = new Applicant(
+		req.body
+)
+	newApplicant.save( function (err, data){
+		res.send(data)
+	})
+
 });
+app.get('/success', function(req, res){
+	res.send('Success!!!')
+
+})
 
 
 
